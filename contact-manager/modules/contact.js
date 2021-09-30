@@ -1,3 +1,16 @@
+const buttonGroup = [
+  {
+    name: 'edit',
+    displayName: 'Edit',
+    buttonClass: 'btn-primary',
+  },
+  {
+    name: 'delete',
+    displayName: 'Delete',
+    buttonClass: 'btn-danger',
+  },
+];
+
 export const render = (contact) => {
   const contactContainer = document.createElement('article');
   contactContainer.classList.add('contact', 'border', 'p-3');
@@ -13,10 +26,22 @@ export const render = (contact) => {
   information.append(phone);
   information.append(email);
 
-  const deleteButton = document.createElement('button');
+  const fragment = new DocumentFragment();
+
+  buttonGroup.forEach(({ name, displayName, buttonClass }) => {
+    const button = document.createElement('button');
+    button.classList.add('btn', buttonClass, `${name}-contact`);
+    button.type = 'button';
+    button.title = displayName;
+    button.innerText = displayName;
+    button.dataset.contactId = contact.id;
+
+    fragment.append(button);
+  });
 
   contactContainer.append(heading);
   contactContainer.append(information);
+  contactContainer.append(fragment);
 
   return contactContainer;
 };
