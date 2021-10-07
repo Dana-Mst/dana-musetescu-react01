@@ -1,11 +1,12 @@
 import { Component, Fragment } from 'react';
+import Films from './components/Films';
 import Search from './components/Search';
 
-const baseUrl = 'https://swapi.dev/api/filmss';
+const baseUrl = 'https://swapi.dev/api/films';
 
 class App extends Component {
   state = {
-    busy: false,
+    busy: true,
     films: [],
     errorMessage: '',
   };
@@ -39,9 +40,13 @@ class App extends Component {
   }
 
   renderFilms() {
-    return this.state.films.map((film) => {
-      return <p key={film.episode_id}>{film.title}</p>;
-    });
+    return (
+      <>
+        <h2>Available films</h2>
+
+        <Films films={this.state.films}></Films>
+      </>
+    );
   }
 
   renderMainScreen() {
@@ -67,7 +72,13 @@ class App extends Component {
           <nav className='container d-flex justify-content-between'>
             <h1 className='display-6 text-warning'>Swapi Cinema</h1>
 
-            <Search></Search>
+            <Search
+              onSearchResults={(films) => {
+                this.setState({
+                  films,
+                });
+              }}
+            ></Search>
           </nav>
         </header>
 
