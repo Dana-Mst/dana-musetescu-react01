@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 
 const baseUrl =
   'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI';
-
-const apiKey = process.env.REACT_APP_WEB_SEARCH_API_KEY;
+const apiKey = process.env.REACT_APP_WEB_SEARCH_KEY;
 const host = 'contextualwebsearch-websearch-v1.p.rapidapi.com';
 
 export const MetaImage = ({ term }) => {
@@ -14,7 +13,7 @@ export const MetaImage = ({ term }) => {
     const refinedSearchTerm = encodeURIComponent(`star wars ${term}`);
     const random = Math.floor(Math.random() * 2000) + 1;
 
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       fetch(
         `${baseUrl}?q=${refinedSearchTerm}&pageNumber=1&pageSize=1&autoCorrect=true`,
         {
@@ -35,6 +34,10 @@ export const MetaImage = ({ term }) => {
           setImageUrl(imageUrl);
         });
     }, random);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [term]);
 
   return (

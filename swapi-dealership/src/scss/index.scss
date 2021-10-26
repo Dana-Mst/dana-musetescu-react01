@@ -1,6 +1,6 @@
 $yellow: #ffe81f;
 $dark: #000;
-$spacer: 1rem;
+$spacer: 1rem; //  = 16px
 $spacers: (
   0: 0,
   1: $spacer * 0.25,
@@ -11,6 +11,7 @@ $spacers: (
   6: $spacer * 3,
   7: $spacer * 4,
 );
+
 @import '~bootstrap/scss/bootstrap';
 
 html {
@@ -18,6 +19,6 @@ html {
 }
 
 body {
-  background-color: dark;
-  color: white;
+  background-color: $dark;
+  color: $white;
 }
